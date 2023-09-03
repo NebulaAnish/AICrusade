@@ -2,6 +2,7 @@ import cn from 'classnames';
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { ResponsiveContainer } from 'recharts';
 
 const fields = ["Installation date", "Transformer Type", "Transformer Model"];
 const fieldNames = ["createdAt", "type", "model"];
@@ -34,8 +35,9 @@ const TransformerForm = () => {
     };
 
   return (
-    <div className='flex h-fit flex-col rounded bg-zinc-300 drop-shadow-xl justify-center items-center px-[1rem] relative top-10 left-10'>
-    <div className="h-[50vh] w-[65vw]">
+    <ResponsiveContainer width="100%" height="100%">
+    <div className='flex h-fit flex-col rounded bg-zinc-300 drop-shadow-xl justify-center items-center relative top-5 left-5'>
+    <div className="h-[50vh] w-[50vw]">
         placeholder
     </div>
     <div className="flex h-fit w-[100%] flex-col justify-center items-center ">
@@ -56,6 +58,7 @@ const TransformerForm = () => {
         </form>
     </div>
     </div>
+    </ResponsiveContainer>
   );
 };
 

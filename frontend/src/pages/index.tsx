@@ -16,15 +16,17 @@ export default function Home() {
     return (
         <main className="flex min-h-screen flex-row">
             <Sidebar
-                {...{
-                    active,
-                    handleButtonClick,
-                    buttons,
-                }}
-            />
-            <div className="overflow-hidden">{active === 0 ? <Monitor /> : <></>}</div>
-            {active === 1 ? <NewTransformer /> : <></>}
-            {active === 2 ? <Analytics /> : <></>}
+                    {...{
+                        active,
+                        handleButtonClick,
+                        buttons,
+                    }}
+                />
+            <div className='grow'>
+                {active === 0 ? <Monitor /> : <></>}
+                {active === 1 ? <NewTransformer /> : <></>}
+                {active === 2 ? <Analytics /> : <></>}
+            </div>
         </main>
     );
 }
