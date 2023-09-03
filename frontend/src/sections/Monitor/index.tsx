@@ -1,11 +1,5 @@
-import { Input } from '@/components/ui/input';
-import Map, { Marker } from '@/components/map';
+import { Marker } from '@/components/map';
 import dynamic from 'next/dynamic';
-import Sidebar from '@/components/ui/Sidebar';
-import { useState } from 'react';
-import Analytics from '@/sections/Analytics';
-import Monitor from '@/sections/Monitor';
-import NewTransformer from '@/sections/NewTransformer';
 
 const buttons = ['Monitor', 'Add new transformer', 'Analytics'];
 
