@@ -1,6 +1,7 @@
 import ReactMapboxGl, { Layer, Feature, Marker, ZoomControl } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Coordinates } from '../../types/types';
+import { Coordinates, Transformer } from '../../types/types';
+import { faultyTransformer, normalTransformer } from '../../db/images';
 
 const Map = ReactMapboxGl({
     accessToken: process.env.MAPBOX_ACCESS_TOKEN || '',
@@ -14,14 +15,12 @@ export interface Marker {
 export interface MapProps {
     width: string;
     height: string;
-    transformerMarkers: Marker[];
-    center?: Coordinates;
+    transformers: Transformer[];
+    center: Coordinates;
 }
 // in render()
 const clusterMarker = (coordinates: Coordinates) => 'M';
-const MapComponent = ({ width, height, transformerMarkers, center }: MapProps) => {
-    console.log(transformerMarkers[0]);
-
+const MapComponent = ({ width, height, transformers, center }: MapProps) => {
     return (
         <Map
             zoom={[10]}
@@ -32,26 +31,41 @@ const MapComponent = ({ width, height, transformerMarkers, center }: MapProps) =
                 width,
             }}
         >
+<<<<<<< HEAD
             {transformerMarkers.map((marker, i) => {
+=======
+            {/* <Cluster ClusterMarkerFactory={clusterMarker}> */}
+            {transformers.map((transformer, i) => {
+>>>>>>> 3b42a2546b06ce26f11ecd732643fc62d7f2a530
                 return (
                     <Marker
-                        key={marker}
+                        key={transformer}
                         coordinates={{
-                            lat: marker.coordinates[0],
-                            lon: marker.coordinates[1],
+                            lat: transformer.latitude,
+                            lon: transformer.longitude,
                         }}
                         anchor="bottom"
                     >
-                        <img height={'20px'} width={'20px'} src={marker.img} />
+                        <img
+                            height={'20px'}
+                            width={'20px'}
+                            src={transformer.fault ? faultyTransformer : normalTransformer}
+                        />
                     </Marker>
                 );
             })}
             <ZoomControl position="top-left" />
+<<<<<<< HEAD
             {transformerMarkers.map((marker, key) => (
                 <Layer type="symbol" id="marker" key={key} layout={{ 'icon-image': 'marker-15' }}>
+=======
+
+            {/* {tr.map((marker, key) => (
+                <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
+>>>>>>> 3b42a2546b06ce26f11ecd732643fc62d7f2a530
                     <Feature coordinates={marker.coordinates} />
                 </Layer>
-            ))}
+            ))} */}
         </Map>
     );
 };
