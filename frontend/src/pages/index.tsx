@@ -1,5 +1,4 @@
 import { Input } from '@/components/ui/input';
-import Map from '@/components/map';
 import dynamic from "next/dynamic";
 
 export default function Home() {
