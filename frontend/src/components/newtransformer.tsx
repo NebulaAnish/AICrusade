@@ -1,15 +1,37 @@
 import cn from 'classnames';
-import { FormEvent } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 
 const fields = ["Installation date", "Transformer Type", "Transformer Model"];
+const fieldNames = ["createdAt", "type", "model"];
+
+type FormData = {
+    createdAt: string;
+    type: string;
+    model: string;
+}
 
 const TransformerForm = () => {
+    const [formData, setFormData] = useState<FormData>({
+        createdAt: '',
+        type: '',
+        model: '',
+    });
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
-      };
+    };
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
+        console.log(formData)
+    };
 
   return (
     <div className='flex h-fit flex-col rounded bg-zinc-300 drop-shadow-xl justify-center items-center px-[1rem] relative top-10 left-10'>
@@ -18,9 +40,13 @@ const TransformerForm = () => {
     </div>
     <div className="flex h-fit w-[100%] flex-col justify-center items-center ">
         <form onSubmit={handleSubmit}>
-            {fields.map((field) => (
+            {fields.map((field, index) => (
                 <div className="px-3 py-1 w-[60vw]" key={field}>
-                    <Input placeholder={field} />
+                    <Input
+                        name={fieldNames[index]} 
+                        placeholder={field}
+                        onChange={handleChange}
+                    />
                 </div>
             ))}
             <div className="p-3 ">
