@@ -1,8 +1,9 @@
-import cn from 'classnames';
+"use client";
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { ResponsiveContainer } from 'recharts';
+import MapComponent from './map';
 
 const fields = ["Installation date", "Transformer Type", "Transformer Model"];
 const fieldNames = ["createdAt", "type", "model"];
@@ -37,8 +38,8 @@ const TransformerForm = () => {
   return (
     <ResponsiveContainer width="100%" height="100%">
     <div className='flex h-fit flex-col rounded bg-zinc-300 drop-shadow-xl justify-center items-center relative top-5 left-5'>
-    <div className="h-[50vh] w-[50vw]">
-        placeholder
+    <div className="h-[50vh] w-[100%]">
+        <MapComponent  center={[85, 27.1]} transformers={[]} containerStyle={{ height: "100%", width: "100%" }} />
     </div>
     <div className="flex h-fit w-[100%] flex-col justify-center items-center ">
         <form onSubmit={handleSubmit}>
