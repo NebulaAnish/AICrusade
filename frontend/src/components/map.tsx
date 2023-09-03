@@ -2,39 +2,47 @@ import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Coordinates } from '../../types/types';
 
-import { Marker } from 'react-mapbox-gl';
+import { Marker, Cluster } from 'react-mapbox-gl';
 
 const Map = ReactMapboxGl({
     accessToken: process.env.MAPBOX_ACCESS_TOKEN || '',
 });
 
+export interface Marker {
+    coordinates: Coordinates;
+    img: string;
+}
+
 export interface MapProps {
     width: string;
     height: string;
-    transformerMarkerCoordinates: Coordinates[];
-    markerUrl: string;
+    transformerMarkers: Marker[];
     center: Coordinates;
 }
 // in render()
-const MapComponent = ({ width, height, transformerMarkerCoordinates, markerUrl, center }: MapProps) => {
+const clusterMarker = (coordinates: Coordinates) => 'M';
+const MapComponent = ({ width, height, transformerMarkers, center }: MapProps) => {
     return (
         <Map
+            zoom={[40]}
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
                 height,
                 width,
             }}
-            // center={[27.734086, 85.347002] }
         >
-            {transformerMarkerCoordinates.map((marker, i) => (
-                <Marker key={i} coordinates={marker} anchor="bottom">
-                    <img height={'40px'} width={'40px'} src={markerUrl} />
-                </Marker>
-            ))}
-
-            <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
-                <Feature coordinates={[27.714881, 85.312914]} />
-            </Layer>
+            {transformerMarkers.map((marker, key) => {
+                console.log(marker.coordinates);
+                return (
+                    <Marker
+                        key={key}
+                        coordinates={marker.coordinates}
+                        // onClick={this.onMarkerClick.bind(this, feature.geometry.coordinates)}
+                    >
+                        <img src={marker.img} height="20px" width="20px" alt="" />
+                    </Marker>
+                );
+            })}
         </Map>
     );
 };
