@@ -63,6 +63,11 @@ class TransformerListView(generics.ListAPIView):
                 transformer.fault = True
                 transformer.save()
         
+        for transformer in return_queryset:
+            if transformer.fault == False:
+                transformer.fault = 0
+            if transformer.fault == True:
+                transformer.fault = 1
         return return_queryset
 
 
