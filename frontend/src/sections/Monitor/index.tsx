@@ -1,6 +1,4 @@
-import { Marker } from '@/components/map';
 import dynamic from 'next/dynamic';
-import { Transformer } from '../../../types/types';
 import transformers from '../../../db/transformers';
 
 const buttons = ['Monitor', 'Add new transformer', 'Analytics'];
