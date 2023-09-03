@@ -21,6 +21,7 @@ const TransformerForm = () => {
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
+        console.log(formData)
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +31,6 @@ const TransformerForm = () => {
             ...prevFormData,
             [name]: value,
         }));
-        console.log(formData)
     };
 
   return (
@@ -46,6 +46,7 @@ const TransformerForm = () => {
                         name={fieldNames[index]} 
                         placeholder={field}
                         onChange={handleChange}
+                        required
                     />
                 </div>
             ))}
