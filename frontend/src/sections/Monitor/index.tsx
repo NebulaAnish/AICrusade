@@ -1,24 +1,16 @@
 import { Marker } from '@/components/map';
 import dynamic from 'next/dynamic';
+import { Transformer } from '../../../types/types';
+import transformers from '../../../db/transformers';
 
 const buttons = ['Monitor', 'Add new transformer', 'Analytics'];
 
 export default function Home() {
     const MapWithNoSSR = dynamic(() => import('@/components/map'));
-    const transformerMarkers: Marker[] = [
-        { img: 'https://cdn-icons-png.flaticon.com/512/649/649813.png', coordinates: [27.2, 85] },
-        { img: 'https://cdn-icons-png.flaticon.com/512/649/649813.png', coordinates: [27, 85.1] },
-        { img: 'https://cdn-icons-png.flaticon.com/512/649/649813.png', coordinates: [27.1, 85.23] },
-    ];
 
     return (
         <div id="map" className="overflow-hidden">
-            <MapWithNoSSR
-                center={[27.714889, 85.312917]}
-                transformerMarkers={transformerMarkers}
-                height={'70vh'}
-                width={'100vw'}
-            />
+            <MapWithNoSSR center={[85, 27.1]} transformers={transformers} height={'70vh'} width={'100vw'} />
         </div>
     );
 }
