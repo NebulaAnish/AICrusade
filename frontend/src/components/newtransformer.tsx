@@ -37,7 +37,7 @@ const TransformerForm = () => {
 
     return (
         <ResponsiveContainer width="100%" height="100%">
-            <div className="flex w-[50rem]  h-fit flex-col rounded bg-zinc-300 drop-shadow-xl justify-center items-center relative top-[5rem] left-[10rem] transform-[translate(-50%, -50%)]">
+            <div className="flex w-[50rem]  h-fit flex-col rounded bg-zinc-300 drop-shadow-xl justify-center items-center relative top-[5rem] left-[10rem]">
                 <div className="h-[50vh] w-[100%]">
                     <MapComponent
                         center={[85, 27.1]}

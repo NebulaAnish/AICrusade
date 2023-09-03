@@ -8,6 +8,7 @@ const transformers: Transformer[] = [
         transformer_type: 'Type 1',
         manufacture_type: 'Man Type 1',
         fault: 0,
+        location: 'Kathmandu',
     },
     {
         latitude: 27,
@@ -16,6 +17,7 @@ const transformers: Transformer[] = [
         transformer_type: 'Type 1',
         manufacture_type: 'Man Type 1',
         fault: 1,
+        location: 'Gorkha',
     },
     {
         latitude: 27.1,
@@ -24,6 +26,7 @@ const transformers: Transformer[] = [
         transformer_type: 'Type 1',
         manufacture_type: 'Man Type 1',
         fault: 0,
+        location: 'Bhaktapur',
     },
 ];
 

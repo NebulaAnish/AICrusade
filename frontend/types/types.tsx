@@ -8,4 +8,5 @@ export interface Transformer {
     img?: string;
     transformer_type: string;
     manufacture_type: string;
+    location: string;
 }
