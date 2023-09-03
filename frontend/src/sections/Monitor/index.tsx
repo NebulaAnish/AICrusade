@@ -6,8 +6,8 @@ const buttons = ['Monitor', 'Add new transformer', 'Analytics'];
 export default function Home() {
     const MapWithNoSSR = dynamic(() => import('@/components/map'));
     const transformerMarkers: Marker[] = [
-        { img: 'https://cdn-icons-png.flaticon.com/512/649/649813.png', coordinates: [27.71, 85.31] },
-        { img: 'https://cdn-icons-png.flaticon.com/512/649/649813.png', coordinates: [28.73, 85.35] },
+        { img: 'https://cdn-icons-png.flaticon.com/512/649/649813.png', coordinates: [26, 85] },
+        { img: 'https://cdn-icons-png.flaticon.com/512/649/649813.png', coordinates: [28, 85] },
         { img: 'https://cdn-icons-png.flaticon.com/512/649/649813.png', coordinates: [29.73, 85.34] },
     ];
 
