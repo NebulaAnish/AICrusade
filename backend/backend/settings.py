@@ -134,3 +134,4 @@ import os
 CORS_ALLOW_ALL_ORIGINS = True
 MODELS = os.path.join(BASE_DIR, 'model')
 DATASET = os.path.join(BASE_DIR, 'dataset')
+SENSOR_FILE = os.path.join(DATASET,"sensor_data.csv")
