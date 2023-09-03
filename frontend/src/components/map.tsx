@@ -18,20 +18,18 @@ export interface MapProps {
     transformers: Transformer[];
     center: Coordinates;
 }
-// in render()
-const clusterMarker = (coordinates: Coordinates) => 'M';
+
 const MapComponent = ({ width, height, transformers, center }: MapProps) => {
     return (
         <Map
             zoom={[10]}
             style="mapbox://styles/mapbox/streets-v9"
-            center={[85, 27.1]}
+            center={center}
             containerStyle={{
                 height,
                 width,
             }}
         >
-            {/* <Cluster ClusterMarkerFactory={clusterMarker}> */}
             {transformers.map((transformer, i) => {
                 return (
                     <Marker
@@ -46,18 +44,12 @@ const MapComponent = ({ width, height, transformers, center }: MapProps) => {
                             height={'20px'}
                             width={'20px'}
                             src={transformer.fault ? faultyTransformer : normalTransformer}
+                            alt="marker"
                         />
                     </Marker>
                 );
             })}
-            {/* </Cluster> */}
             <ZoomControl position="top-left" />
-
-            {/* {tr.map((marker, key) => (
-                <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
-                    <Feature coordinates={marker.coordinates} />
-                </Layer>
-            ))} */}
         </Map>
     );
 };
