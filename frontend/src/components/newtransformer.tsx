@@ -4,13 +4,20 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { ResponsiveContainer } from 'recharts';
 import MapComponent from './map';
+import { Toaster, toast } from 'react-hot-toast';
 import SearchBar from './searchbar';
+import axios, { AxiosResponse } from 'axios';
+import useAxios from '@/hooks/useAxios';
 
-const fields = ['Installation date', 'Transformer Type', 'Transformer Model'];
+const fields = [
+    { title: 'Installation date', type: 'date' },
+    { title: 'Transformer Type', type: 'text' },
+    { title: 'Transformer Model', type: 'text' },
+];
 const fieldNames = ['createdAt', 'type', 'model'];
 
 type FormData = {
-    name: string;
+    location: string;
     latitude: number;
     longitude: number;
     createdAt: string;
@@ -20,7 +27,7 @@ type FormData = {
 
 const TransformerForm = () => {
     const [formData, setFormData] = useState<FormData>({
-        name: '',
+        location: '',
         latitude: 0,
         longitude: 0,
         createdAt: '',
@@ -28,21 +35,68 @@ const TransformerForm = () => {
         model: '',
     });
     const [center, setCenter] = useState<[number, number]>([85, 27.1]);
+    const [mapSelected, setMapSelected] = useState<boolean>(false);
 
-    const handleSubmit = (event: FormEvent) => {
+    const token = process.env.MAPBOX_ACCESS_TOKEN;
+
+    const getPlaceName = async (lat: number, lng: number) => {
+        try {
+            const res = await fetch(
+                `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${token}`
+            );
+            const data = await res.json();
+            return data.features[0].place_name;
+        } catch (err) {}
+    };
+
+    const handleClick = (map: any, e: any) => {
+        // const center = e.transform._center;
+        console.log(e);
+        const { lng, lat } = e.lngLat;
+        setCenter([lng, lat]);
+        getPlaceName(lat, lng);
+        setFormData({
+            ...formData,
+            latitude: lat as number,
+            longitude: lng as number,
+        });
+        setMapSelected(true);
+        // console.log(longitude, latitude);
+    };
+    const axios = useAxios();
+
+    const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
-        console.log(formData);
+        if (!mapSelected) {
+            toast.error('Please select location');
+            return;
+        }
+        if (!formData.createdAt) {
+            toast.error('Please select installed date');
+            return;
+        }
+
+        if (!formData.model || !formData.type) {
+            toast.error('Please enter all data');
+            return;
+        }
+        const location = await getPlaceName(formData.latitude, formData.longitude);
+        setFormData(location);
+
+        try {
+        } catch (err) {}
     };
 
     const handleCenterChange = (center: [number, number], name: string) => {
         const centerRev: [number, number] = center.reverse() as [number, number];
         const locationName = name;
+        console.log(centerRev);
         setCenter(centerRev);
         setFormData((prevFormData) => ({
             ...prevFormData,
-            name: locationName,
-            latitude: centerRev[0],
-            longitude: centerRev[1],
+            location: locationName,
+            // latitude: centerRev[0],
+            // longitude: centerRev[1],
         }));
     };
 
@@ -55,22 +109,40 @@ const TransformerForm = () => {
         }));
     };
 
+    const getPythonDate = (date: Date): string => {
+        const jsDate = new Date(date);
+        const isoString = jsDate.toISOString();
+        const python_date = isoString.substring(0, 10);
+        return python_date;
+    };
+
     return (
         <ResponsiveContainer width="100%" height="100%">
             <div className="flex w-[40rem]  h-fit flex-col rounded bg-zinc-300 drop-shadow-xl justify-center items-center relative top-[1rem] left-[10rem]">
+                <Toaster />
+
                 <div className="h-[50vh] w-[100%]">
                     <SearchBar onLocationSelect={handleCenterChange} className="absolute z-40 w-[100%]" />
                     <MapComponent
+                        handleClick={(map, e) => handleClick(map, e)}
                         center={center}
                         transformers={[]}
                         containerStyle={{ height: '100%', width: '100%', zIndex: '0' }}
+                        mapSelected={true}
+                        selectedLocation={{ latitude: formData.latitude, longitude: formData.longitude }}
                     />
                 </div>
                 <div className="flex h-fit w-[100%] flex-col justify-center items-center ">
                     <form className="min-w-100" onSubmit={handleSubmit}>
                         {fields.map((field, index) => (
-                            <div className="px-3 py-2 mt-1 w-[32rem]" key={field}>
-                                <Input name={fieldNames[index]} placeholder={field} onChange={handleChange} required />
+                            <div className="px-3 py-2 mt-1 w-[32rem]" key={field.title}>
+                                <Input
+                                    name={fieldNames[index]}
+                                    placeholder={field.title}
+                                    onChange={handleChange}
+                                    type={field.type}
+                                    required
+                                />
                             </div>
                         ))}
                         <div className="p-3 ">
