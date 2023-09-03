@@ -3,12 +3,13 @@ import { Coordinates } from '../../types/types';
 import { Input } from './ui/input';
 
 export interface SearchBarProps {
-  onLocationSelect: (location: Coordinates) => void;
+  onLocationSelect: (location: Coordinates, name: string) => void;
+  className?: string;
 }
 
 const token = process.env.MAPBOX_ACCESS_TOKEN;
 
-const SearchBar = ({ onLocationSelect }: SearchBarProps) => {
+const SearchBar = ({ onLocationSelect, className }: SearchBarProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
@@ -30,14 +31,14 @@ const SearchBar = ({ onLocationSelect }: SearchBarProps) => {
     }
   };
 
-  const handleLocationSelect = (location: Coordinates) => {
-    onLocationSelect(location);
+  const handleLocationSelect = (location: Coordinates, name: string) => {
+    onLocationSelect(location, name);
     setSearchTerm('');
     setSearchResults([]);
   };
 
   return (
-    <div>
+    <div className={className}>
       <Input
         type="text"
         placeholder="Search for a location"
@@ -51,7 +52,7 @@ const SearchBar = ({ onLocationSelect }: SearchBarProps) => {
             <li
               key={result.id}
               className='cursor-pointer p-3 hover:bg-gray-200'
-              onClick={() => handleLocationSelect([result.center[1], result.center[0]])}
+              onClick={() => handleLocationSelect([result.center[1], result.center[0]], result.place_name)}
             >
               {result.place_name}
             </li>

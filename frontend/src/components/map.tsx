@@ -3,7 +3,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { Coordinates, Transformer } from '../../types/types';
 import { faultyTransformer, normalTransformer } from '../../db/images';
 import Modal from './ui/Modal';
-import TransformerMarker from './ui/transformerMarker';
+import TransformerMarker from './ui/TransformerMarker';
 
 const Map = ReactMapboxGl({
     accessToken: process.env.MAPBOX_ACCESS_TOKEN || '',
