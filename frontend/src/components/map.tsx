@@ -24,26 +24,22 @@ export interface MapProps {
 const clusterMarker = (coordinates: Coordinates) => 'M';
 const MapComponent = ({ width, height, transformerMarkers, center }: MapProps) => {
     console.log(transformerMarkers[0]);
-    const [viewport, setViewport] = useState({
-        height: '100%',
-        latitude: transformerMarkers[0].coordinates[0],
-        center: [...transformerMarkers[0].coordinates],
-        longitude: transformerMarkers[0].coordinates[1],
-        zoom: [10], // Initial zoom level
-    });
+
     return (
         <Map
-            {...viewport}
+            zoom={[10]}
             style="mapbox://styles/mapbox/streets-v9"
+            center={[85, 27.1]}
             containerStyle={{
                 height,
                 width,
             }}
         >
             {/* <Cluster ClusterMarkerFactory={clusterMarker}> */}
-            {transformerMarkers.map((marker, key) => {
+            {transformerMarkers.map((marker, i) => {
                 return (
                     <Marker
+                        key={marker}
                         coordinates={{
                             lat: marker.coordinates[0],
                             lon: marker.coordinates[1],
