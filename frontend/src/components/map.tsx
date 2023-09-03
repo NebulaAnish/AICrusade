@@ -1,9 +1,6 @@
 import ReactMapboxGl, { Layer, Feature, Marker, ZoomControl } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Coordinates, Transformer } from '../../types/types';
-
-import { latLng, marker } from 'leaflet';
-import { useState } from 'react';
 import { faultyTransformer, normalTransformer } from '../../db/images';
 
 const Map = ReactMapboxGl({
@@ -38,7 +35,7 @@ const MapComponent = ({ width, height, transformers, center }: MapProps) => {
             {transformers.map((transformer, i) => {
                 return (
                     <Marker
-                        key={marker}
+                        key={transformer}
                         coordinates={{
                             lat: transformer.latitude,
                             lon: transformer.longitude,
