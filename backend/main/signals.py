@@ -3,15 +3,17 @@ from django.dispatch import receiver
 import numpy as np
 import joblib
 import os
-# model_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'model', 'random_forest.joblib')
+from django.conf import settings
+
 
 new_item_created = Signal()
-# random_forest = joblib.load(model_file_path)
+MODEL_FILE = os.path.join(settings.MODELS, "random_forest.joblib")
+model = joblib.load(MODEL_FILE)
 
 @receiver(new_item_created)
 def prediction(sender, instance, **kwargs):
     prediction = 0
-
+    
 
     if prediction:
         instance.fault = True
