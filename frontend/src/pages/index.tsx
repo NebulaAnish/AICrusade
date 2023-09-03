@@ -1,32 +1,32 @@
-import { Input } from '@/components/ui/input';
-import Map from '@/components/map';
-import dynamic from 'next/dynamic';
-import { Coordinates } from '../../types/types';
 import Sidebar from '@/components/ui/Sidebar';
+import { useState } from 'react';
+import Analytics from '@/sections/Analytics';
+import Monitor from '@/sections/Monitor';
+import NewTransformer from '@/sections/NewTransformer';
+
+const buttons = ["Monitor", "Add new transformer", "Analytics"];
 
 export default function Home() {
-    const MapWithNoSSR = dynamic(() => import('@/components/map'), {
-        ssr: false,
-    });
+    const [active, setActive] = useState<number>(0);
 
-    const transormerCoordinates: Coordinates[] = [
-        [27.714889, 85.312917],
-        [27.730312, 85.355778],
-        [27.734086, 85.347002],
-    ];
+    const handleButtonClick = (index: number) => {
+        setActive(index);
+    }
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <Sidebar />
-            <div id="map">
-                <MapWithNoSSR
-                    center={[27.714889, 85.312917]}
-                    markerUrl="https://cdn-icons-png.flaticon.com/512/649/649813.png"
-                    transformerMarkerCoordinates={transormerCoordinates}
-                    height={'60vh'}
-                    width={'100vw'}
-                />
+        <main className="flex min-h-screen flex-row">
+            <Sidebar {
+                ...{
+                    active,
+                    handleButtonClick,
+                    buttons
+                }
+            } />
+            <div className="overflow-hidden">
+                {active === 0 ? <Monitor /> : <></>}
             </div>
+            {active === 1 ? <NewTransformer /> : <></>}
+            {active === 2 ? <Analytics /> : <></>}
         </main>
     );
 }

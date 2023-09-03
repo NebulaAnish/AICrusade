@@ -2,18 +2,15 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import cn from 'classnames';
 
-const buttons = ["Monitor", "Add new transformer", "Analytics"];
-
 type ButtonVariant = "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
 
-const Sidebar = () => {
-    const [active, setActive] = useState<number>(0);
+interface SideBarPropsI {
+    active: number;
+    handleButtonClick: (index: number) => void;
+    buttons: string[];
+}
 
-    const handleButtonClick = (index: number) => {
-        setActive(index);
-    }
-    
-
+const Sidebar = ({active, handleButtonClick, buttons}: SideBarPropsI) => {
   return (
     <div className="flex flex-col min-h-screen max-w-[25%] bg-zinc-300">
         <div className="text-3xl self-center pt-5">
