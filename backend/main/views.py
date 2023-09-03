@@ -26,10 +26,9 @@ class TransformerListView(generics.ListAPIView):
         new_item_created.send(sender=instance.__class__, instance=instance)
     def get_queryset(self):
         # Get latitude and longitude query parameters from the request
+        sensor_dataset = pd.read_csv(settings.SENSOR_FILE)
         latitude = self.request.query_params.get('latitude')
         longitude = self.request.query_params.get('longitude')
-        sensor_dataset = pd.read_csv(settings.SENSOR_FILE)
-
         if latitude is not None and longitude is not None:
             try:
                 latitude = float(latitude)
@@ -38,8 +37,8 @@ class TransformerListView(generics.ListAPIView):
                 return Transformer.objects.none()
 
             # Define latitude and longitude difference (approximately 2 units)
-            latitude_difference = 2
-            longitude_difference = 2
+            latitude_difference = 1
+            longitude_difference = 1
 
             # Calculate latitude and longitude ranges for the query
             min_latitude = latitude - latitude_difference
@@ -59,8 +58,11 @@ class TransformerListView(generics.ListAPIView):
             return_queryset = Transformer.objects.all()
         for transformer in return_queryset:
             sensor_data = sensor_dataset.sample(1)
-            if signals.model.predict(sensor_data)==1:
+            predicted_value = signals.model.predict(sensor_data)
+            if predicted_value ==1:
                 transformer.fault = True
+                transformer.save()
+        
         return return_queryset
 
 
