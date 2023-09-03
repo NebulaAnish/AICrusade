@@ -13,3 +13,5 @@ class Transformer(models.Model):
     def __str__(self):
         trasnformer_name = f'Transformer: {self.id} '
         return trasnformer_name
+
+# class SensorData():

@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     # path("add/", ),
-    path("transformers/", views.TransformerListView.as_view(), name='transformer-list'),
+    path("transformers/", views.TransformerListView.as_view(), name='transformer-list-create'),
     path("transformer/<int:pk>/", views.TransformerRetrieveUpdateDestroyView.as_view(), name='transformer-detail'),
 ]
