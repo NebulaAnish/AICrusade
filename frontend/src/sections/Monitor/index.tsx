@@ -5,11 +5,13 @@ import transformers from '../../../db/transformers';
 
 export default function Home() {
     const [center, setCenter] = useState<[number, number]>([85, 27.1]);
+    const [name, setName] = useState<string>('');
     const MapWithNoSSR = dynamic(() => import('@/components/map'));
 
-    const handleCenterChange = (center: [number, number]) => {
+    const handleCenterChange = (center: [number, number], name: string) => {
         const centerRev:[number, number] = center.reverse() as [number, number];
         setCenter(centerRev);
+        setName(name);
     };
 
     return (
