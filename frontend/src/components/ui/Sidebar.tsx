@@ -12,7 +12,7 @@ interface SideBarPropsI {
 
 const Sidebar = ({active, handleButtonClick, buttons}: SideBarPropsI) => {
   return (
-    <div className="flex flex-col min-h-screen max-w-[25%] bg-zinc-300">
+    <div className="flex flex-col min-h-screen max-w-[25%] bg-zinc-300 sticky">
         <div className="text-3xl self-center pt-5">
             <p>GridGuardian</p>
         </div>
