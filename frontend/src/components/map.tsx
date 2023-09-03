@@ -13,22 +13,18 @@ export interface Marker {
 }
 
 export interface MapProps {
-    width: string;
-    height: string;
+    containerStyle: React.CSSProperties;
     transformers: Transformer[];
     center: Coordinates;
 }
 
-const MapComponent = ({ width, height, transformers, center }: MapProps) => {
+const MapComponent = ({ containerStyle, transformers, center }: MapProps) => {
     return (
         <Map
             zoom={[10]}
             style="mapbox://styles/mapbox/streets-v9"
             center={center}
-            containerStyle={{
-                height,
-                width,
-            }}
+            containerStyle={containerStyle}
         >
             <>
                 {transformers.map((transformer, i) => {

@@ -15,7 +15,7 @@ export default function Home() {
     return (
         <div id="map" className="overflow-hidden">
             <SearchBar onLocationSelect={handleCenterChange} />
-            <MapWithNoSSR center={center} transformers={transformers} height={'70vh'} width={'100vw'} />
+            <MapWithNoSSR center={center} transformers={transformers} containerStyle={{ height: "70vh", width: "100vw"}} />
         </div>
       );
 }
