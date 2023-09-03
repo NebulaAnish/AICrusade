@@ -1,8 +1,9 @@
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Feature, Marker, ZoomControl } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Coordinates } from '../../types/types';
 
-import { Marker, Cluster } from 'react-mapbox-gl';
+import { latLng, marker } from 'leaflet';
+import { useState } from 'react';
 
 const Map = ReactMapboxGl({
     accessToken: process.env.MAPBOX_ACCESS_TOKEN || '',
@@ -22,27 +23,45 @@ export interface MapProps {
 // in render()
 const clusterMarker = (coordinates: Coordinates) => 'M';
 const MapComponent = ({ width, height, transformerMarkers, center }: MapProps) => {
+    console.log(transformerMarkers[0]);
+    const [viewport, setViewport] = useState({
+        height: '100%',
+        latitude: transformerMarkers[0].coordinates[0],
+        center: [...transformerMarkers[0].coordinates],
+        longitude: transformerMarkers[0].coordinates[1],
+        zoom: [10], // Initial zoom level
+    });
     return (
         <Map
-            zoom={[40]}
+            {...viewport}
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
                 height,
                 width,
             }}
         >
+            {/* <Cluster ClusterMarkerFactory={clusterMarker}> */}
             {transformerMarkers.map((marker, key) => {
-                console.log(marker.coordinates);
                 return (
                     <Marker
-                        key={key}
-                        coordinates={marker.coordinates}
-                        // onClick={this.onMarkerClick.bind(this, feature.geometry.coordinates)}
+                        coordinates={{
+                            lat: marker.coordinates[0],
+                            lon: marker.coordinates[1],
+                        }}
+                        anchor="bottom"
                     >
-                        <img src={marker.img} height="20px" width="20px" alt="" />
+                        <img height={'20px'} width={'20px'} src={marker.img} />
                     </Marker>
                 );
             })}
+            {/* </Cluster> */}
+            <ZoomControl position="top-left" />
+
+            {transformerMarkers.map((marker, key) => (
+                <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
+                    <Feature coordinates={marker.coordinates} />
+                </Layer>
+            ))}
         </Map>
     );
 };
