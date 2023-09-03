@@ -30,25 +30,30 @@ const MapComponent = ({ width, height, transformers, center }: MapProps) => {
                 width,
             }}
         >
-            {transformers.map((transformer, i) => {
-                return (
-                    <Marker
-                        key={transformer}
-                        coordinates={{
-                            lat: transformer.latitude,
-                            lon: transformer.longitude,
-                        }}
-                        anchor="bottom"
-                    >
-                        <img
-                            height={'20px'}
-                            width={'20px'}
-                            src={transformer.fault ? faultyTransformer : normalTransformer}
-                            alt="marker"
-                        />
-                    </Marker>
-                );
-            })}
+            <>
+                {transformers.map((transformer, i) => {
+                    return (
+                        <>
+                            <Marker
+                                key={transformer}
+                                coordinates={{
+                                    lat: transformer.latitude,
+                                    lon: transformer.longitude,
+                                }}
+                                anchor="bottom"
+                            >
+                                <img
+                                    height={'20px'}
+                                    width={'20px'}
+                                    src={transformer.fault ? faultyTransformer : normalTransformer}
+                                    alt="marker"
+                                />
+                            </Marker>
+                        </>
+                    );
+                })}
+            </>
+
             <ZoomControl position="top-left" />
         </Map>
     );
