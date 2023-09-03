@@ -11,7 +11,7 @@ class Transformer(models.Model):
     manufacture_type = models.CharField(max_length=100)
 
     def __str__(self):
-        trasnformer_name = f'Transformer: {self.id} '
-        return trasnformer_name
+        transformer_name = f'Transformer: {self.id} '
+        return transformer_name
 
 # class SensorData():
