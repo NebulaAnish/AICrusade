@@ -130,5 +130,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # USER DEFINED VARIABLES
-
+import os
 CORS_ALLOW_ALL_ORIGINS = True
+MODELS = os.path.join(BASE_DIR, 'model')
+DATASET = os.path.join(BASE_DIR, 'dataset')

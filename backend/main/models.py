@@ -14,4 +14,6 @@ class Transformer(models.Model):
         transformer_name = f'Transformer: {self.id} '
         return transformer_name
 
-# class SensorData():
+class SensorData():
+    transformer = models.OneToOneField(Transformer, on_delete=models.CASCADE)
+    
