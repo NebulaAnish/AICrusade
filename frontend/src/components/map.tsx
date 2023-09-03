@@ -2,9 +2,6 @@ import ReactMapboxGl, { Layer, Feature, Marker, ZoomControl } from 'react-mapbox
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Coordinates } from '../../types/types';
 
-import { latLng, marker } from 'leaflet';
-import { useState } from 'react';
-
 const Map = ReactMapboxGl({
     accessToken: process.env.MAPBOX_ACCESS_TOKEN || '',
 });
@@ -54,7 +51,7 @@ const MapComponent = ({ width, height, transformerMarkers, center }: MapProps) =
             <ZoomControl position="top-left" />
 
             {transformerMarkers.map((marker, key) => (
-                <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
+                <Layer type="symbol" id="marker" key={key} layout={{ 'icon-image': 'marker-15' }}>
                     <Feature coordinates={marker.coordinates} />
                 </Layer>
             ))}
