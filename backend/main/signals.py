@@ -9,14 +9,6 @@ from django.conf import settings
 
 new_item_created = Signal()
 MODEL_FILE = os.path.join(settings.MODELS, "random_forest.joblib")
-SENSOR_FILE = os.path.join(settings.MODELS, "sensor_data.sensor_data.csv")
+# SENSOR_FILE = os.path.join(settings.MODELS, "sensor_data.sensor_data.csv")
 model = joblib.load(MODEL_FILE)
 
-@receiver(new_item_created)
-def prediction(sender, instance, **kwargs):
-    prediction = 0
-
-
-    if prediction:
-        instance.fault = True
-        instance.save()

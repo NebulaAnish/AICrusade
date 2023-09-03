@@ -3,26 +3,21 @@ from rest_framework.views import APIView
 from rest_framework import generics, filters, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-# Create your views here.
 from .models import Transformer
 from .serializers import TransformerSerializer
 from .signals import new_item_created
-
-# class TransformerListView(generics.ListCreateAPIView):
-#     queryset = Transformer.objects.all()
-#     serializer_class = TransformerSerializer
-
-
-    
-class TransformerRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Transformer.objects.all()
-    serializer_class = TransformerSerializer
-
-
 from rest_framework import generics
 from django.db.models import Q
 from .models import Transformer
 from .serializers import TransformerSerializer
+import pandas as pd
+from django.conf import settings
+from . import signals
+
+class TransformerRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Transformer.objects.all()
+    serializer_class = TransformerSerializer
+
 
 class TransformerListView(generics.ListAPIView):
     serializer_class = TransformerSerializer
@@ -33,6 +28,7 @@ class TransformerListView(generics.ListAPIView):
         # Get latitude and longitude query parameters from the request
         latitude = self.request.query_params.get('latitude')
         longitude = self.request.query_params.get('longitude')
+        sensor_dataset = pd.read_csv(settings.SENSOR_FILE)
 
         if latitude is not None and longitude is not None:
             try:
@@ -58,9 +54,15 @@ class TransformerListView(generics.ListAPIView):
                 Q(longitude__gte=min_longitude) &
                 Q(longitude__lte=max_longitude)
             )
-            return queryset
+            return_queryset = queryset
         else:
-            return Transformer.objects.all()
+            return_queryset = Transformer.objects.all()
+        for transformer in return_queryset:
+            sensor_data = sensor_dataset.sample(1)
+            if signals.model.predict(sensor_data)==1:
+                transformer.fault = True
+        return return_queryset
+
 
 @api_view(['GET'])
 def model_predict(request):
