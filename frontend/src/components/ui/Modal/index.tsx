@@ -2,13 +2,13 @@ import React from 'react';
 
 export interface ModalProps {
     children: React.ReactNode;
-    onClose: () => void;
+    onClose: React.MouseEventHandler<HTMLDivElement>;
 }
-function index({ children }: ModalProps) {
+function index({ children, onClose }: ModalProps) {
     return (
         <div className="absolute inset-0">
-            <div className="absolute modal-backdrop inset-0 z-0"></div>
-            <div className="modal-content absolute z-[2]">{children}</div>
+            <div onClick={onClose} className="absolute modal-backdrop inset-0 z-[4]"></div>
+            <div className="modal-content absolute z-[5] mt-[10%]">{children}</div>
         </div>
     );
 }

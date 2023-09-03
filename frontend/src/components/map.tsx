@@ -2,6 +2,8 @@ import ReactMapboxGl, { Layer, Feature, Marker, ZoomControl } from 'react-mapbox
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Coordinates, Transformer } from '../../types/types';
 import { faultyTransformer, normalTransformer } from '../../db/images';
+import Modal from './ui/Modal';
+import TransformerMarker from './ui/TransformerMarker';
 
 const Map = ReactMapboxGl({
     accessToken: process.env.MAPBOX_ACCESS_TOKEN || '',
@@ -20,35 +22,10 @@ export interface MapProps {
 
 const MapComponent = ({ containerStyle, transformers, center }: MapProps) => {
     return (
-        <Map
-            zoom={[10]}
-            style="mapbox://styles/mapbox/streets-v9"
-            center={center}
-            containerStyle={containerStyle}
-        >
-            <>
-                {transformers.map((transformer, i) => {
-                    return (
-                        <>
-                            <Marker
-                                key={transformer}
-                                coordinates={{
-                                    lat: transformer.latitude,
-                                    lon: transformer.longitude,
-                                }}
-                                anchor="bottom"
-                            >
-                                <img
-                                    height={'20px'}
-                                    width={'20px'}
-                                    src={transformer.fault ? faultyTransformer : normalTransformer}
-                                    alt="marker"
-                                />
-                            </Marker>
-                        </>
-                    );
-                })}
-            </>
+        <Map zoom={[10]} style="mapbox://styles/mapbox/streets-v9" center={center} containerStyle={containerStyle}>
+            {transformers.map((transformer, i) => {
+                return <TransformerMarker transformer={transformer} />;
+            })}
 
             <ZoomControl position="top-left" />
         </Map>

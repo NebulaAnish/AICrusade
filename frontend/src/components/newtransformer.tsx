@@ -35,7 +35,7 @@ const TransformerForm = () => {
     };
 
     const handleCenterChange = (center: [number, number], name: string) => {
-        const centerRev:[number, number] = center.reverse() as [number, number];
+        const centerRev: [number, number] = center.reverse() as [number, number];
         const locationName = name;
         setCenter(centerRev);
         setFormData((prevFormData) => ({
@@ -53,18 +53,17 @@ const TransformerForm = () => {
             ...prevFormData,
             [name]: value,
         }));
-
     };
 
     return (
         <ResponsiveContainer width="100%" height="100%">
             <div className="flex w-[40rem]  h-fit flex-col rounded bg-zinc-300 drop-shadow-xl justify-center items-center relative top-[1rem] left-[10rem]">
                 <div className="h-[50vh] w-[100%]">
-                    <SearchBar onLocationSelect={handleCenterChange} className='absolute z-40 w-[100%]' />
+                    <SearchBar onLocationSelect={handleCenterChange} className="absolute z-40 w-[100%]" />
                     <MapComponent
                         center={center}
                         transformers={[]}
-                        containerStyle={{ height: '100%', width: '100%', zIndex: '0'}}
+                        containerStyle={{ height: '100%', width: '100%', zIndex: '0' }}
                     />
                 </div>
                 <div className="flex h-fit w-[100%] flex-col justify-center items-center ">

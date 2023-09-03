@@ -78,9 +78,13 @@
 .modal-content {
     top: 50%;
     left: 50%;
+
     transform: translate(-50%, -50%);
 }
 
+.text-red {
+    color: rgb(203, 32, 32);
+}
 .modal-backdrop {
     background-color: rgb(21, 21, 21);
     opacity: 0.5;

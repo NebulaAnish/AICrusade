@@ -3,7 +3,7 @@ import { Transformer } from "../../types/types";
 import useAxios from "./useAxios";
 
 const useFetchData = () => {
-  const [data, setData] = useState<Array<Transformer>>();
+  const [data, setData] = useState<Array<Transformer>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const axios = useAxios();
@@ -11,7 +11,7 @@ const useFetchData = () => {
   const fetchAllData = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.get(`transformers/?format=json`);
+      const { data } = await axios.get(`transformers`);
       setData(data);
     } catch (err: any) {
       setError(err);
