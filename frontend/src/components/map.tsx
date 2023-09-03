@@ -24,7 +24,7 @@ const MapComponent = ({ containerStyle, transformers, center }: MapProps) => {
     return (
         <Map zoom={[10]} style="mapbox://styles/mapbox/streets-v9" center={center} containerStyle={containerStyle}>
             {transformers.map((transformer, i) => {
-                return <TransformerMarker transformer={transformer} />;
+                return <TransformerMarker key={i} transformer={transformer} />;
             })}
 
             <ZoomControl position="top-left" />
