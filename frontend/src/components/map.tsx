@@ -18,8 +18,7 @@ export interface MapProps {
     transformers: Transformer[];
     center: Coordinates;
 }
-// in render()
-const clusterMarker = (coordinates: Coordinates) => 'M';
+
 const MapComponent = ({ width, height, transformers, center }: MapProps) => {
     return (
         <Map
@@ -31,12 +30,7 @@ const MapComponent = ({ width, height, transformers, center }: MapProps) => {
                 width,
             }}
         >
-<<<<<<< HEAD
-            {transformerMarkers.map((marker, i) => {
-=======
-            {/* <Cluster ClusterMarkerFactory={clusterMarker}> */}
             {transformers.map((transformer, i) => {
->>>>>>> 3b42a2546b06ce26f11ecd732643fc62d7f2a530
                 return (
                     <Marker
                         key={transformer}
@@ -50,22 +44,12 @@ const MapComponent = ({ width, height, transformers, center }: MapProps) => {
                             height={'20px'}
                             width={'20px'}
                             src={transformer.fault ? faultyTransformer : normalTransformer}
+                            alt="marker"
                         />
                     </Marker>
                 );
             })}
             <ZoomControl position="top-left" />
-<<<<<<< HEAD
-            {transformerMarkers.map((marker, key) => (
-                <Layer type="symbol" id="marker" key={key} layout={{ 'icon-image': 'marker-15' }}>
-=======
-
-            {/* {tr.map((marker, key) => (
-                <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
->>>>>>> 3b42a2546b06ce26f11ecd732643fc62d7f2a530
-                    <Feature coordinates={marker.coordinates} />
-                </Layer>
-            ))} */}
         </Map>
     );
 };

@@ -1,11 +1,5 @@
-import { Marker } from '@/components/map';
-import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import SearchBar from '@/components/searchbar';
-import { Transformer } from '../../../types/types';
 import transformers from '../../../db/transformers';
-
-const buttons = ['Monitor', 'Add new transformer', 'Analytics'];
 
 export default function Home() {
     const MapWithNoSSR = dynamic(() => import('@/components/map'));
