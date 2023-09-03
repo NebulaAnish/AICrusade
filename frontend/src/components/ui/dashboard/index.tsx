@@ -1,5 +1,3 @@
-import { SideBar } from '../Sidebar';
-
 import React from 'react';
 
 function index() {
