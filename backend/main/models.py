@@ -9,6 +9,7 @@ class Transformer(models.Model):
     fault = models.BooleanField(default=False)
     transformer_type = models.CharField(max_length=100)
     manufacture_type = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
 
     def __str__(self):
         transformer_name = f'Transformer: {self.id} '
