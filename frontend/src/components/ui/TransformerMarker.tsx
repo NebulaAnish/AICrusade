@@ -40,7 +40,7 @@ function TransformerMarker({
                             </div>
                             <div className="flex items-center flex-row justify-center text-xl">
                                 <span className="detail-title mr-2 font-bold ">Installed At:</span>{' '}
-                                {installed_at.toISOString()}
+                                {installed_at}
                             </div>
                             <div className="flex items-center flex-row justify-center text-xl">
                                 <span className="detail-title mr-2 font-bold ">Transformer Type:</span>{' '}

@@ -3,7 +3,7 @@ import { Transformer } from "../../types/types";
 import useAxios from "./useAxios";
 
 const useFetchData = () => {
-  const [data, setData] = useState<Array<Transformer>>();
+  const [data, setData] = useState<Array<Transformer>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const axios = useAxios();
