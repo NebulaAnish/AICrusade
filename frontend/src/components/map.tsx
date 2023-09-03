@@ -43,7 +43,7 @@ const MapComponent = ({
             containerStyle={containerStyle}
         >
             {transformers.map((transformer, i) => {
-                return <TransformerMarker transformer={transformer} />;
+                return <TransformerMarker key={i} transformer={transformer} />;
             })}
             {mapS && (
                 <Marker

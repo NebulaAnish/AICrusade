@@ -20,7 +20,19 @@ const useFetchData = () => {
     }
   };
 
-  return { error, data, isLoading, fetchAllData };
+  const fetchNearData = async (latitude: number, longitude: number) => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(`transformers/?latitude=${latitude}&longitude=${longitude}`);
+      setData(data);
+    } catch (err: any) {
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { error, data, isLoading, fetchAllData, fetchNearData };
 };
 
 export default useFetchData;
