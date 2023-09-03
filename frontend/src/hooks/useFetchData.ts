@@ -11,8 +11,8 @@ const useFetchData = () => {
   const fetchAllData = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.get(`transformers`);
-      setData(data?.payload?.data);
+      const { data } = await axios.get(`transformers/?format=json`);
+      setData(data);
     } catch (err: any) {
       setError(err);
     } finally {

@@ -16,6 +16,15 @@ export default function Home() {
         setName(name);
     };
 
+    useEffect(() => {
+        fetchAllData();
+    }, []);
+
+    if (error) {
+        return <div>Failed to load</div>;
+    }
+    console.log(data);
+
     return (
         <div id="map" className="overflow-hidden">
             <SearchBar onLocationSelect={handleCenterChange} />
