@@ -1,5 +1,5 @@
 'use client';
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { ResponsiveContainer } from 'recharts';
@@ -54,11 +54,13 @@ const TransformerForm = () => {
         console.log(e);
         const { lng, lat } = e.lngLat;
         setCenter([lng, lat]);
-        getPlaceName(lat, lng);
-        setFormData({
-            ...formData,
-            latitude: lat as number,
-            longitude: lng as number,
+        getPlaceName(lat, lng).then((location) => {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                latitude: lat as number,
+                longitude: lng as number,
+                location: location,
+            }));
         });
         setMapSelected(true);
         // console.log(longitude, latitude);
@@ -126,6 +128,10 @@ const TransformerForm = () => {
         const python_date = isoString.substring(0, 10);
         return python_date;
     };
+
+    useEffect(() => {
+        console.log(formData);
+    }, [formData]);
 
     return (
         <ResponsiveContainer width="100%" height="100%">
