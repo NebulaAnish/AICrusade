@@ -37,8 +37,8 @@ class TransformerListView(generics.ListCreateAPIView):
                 return Transformer.objects.none()
 
             # Define latitude and longitude difference (approximately 2 units)
-            latitude_difference = 1
-            longitude_difference = 1
+            latitude_difference = 2
+            longitude_difference = 2
 
             # Calculate latitude and longitude ranges for the query
             min_latitude = latitude - latitude_difference
