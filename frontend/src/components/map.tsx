@@ -21,6 +21,7 @@ export interface MapProps {
     transformers: Transformer[];
     center: Coordinates;
     handleClick?: (e: any, map: any) => void;
+    handleDrag?: (e: any, map: any) => void;
     mapSelected?: boolean;
     selectedLocation?: { latitude: number; longitude: number };
 }
@@ -30,6 +31,7 @@ const MapComponent = ({
     transformers,
     center,
     handleClick = () => {},
+    handleDrag = () => {},
     mapSelected,
     selectedLocation,
 }: MapProps) => {
@@ -37,6 +39,7 @@ const MapComponent = ({
     return (
         <Map
             onClick={(e, map) => handleClick(e, map)}
+            onDragEnd={(e, map) => handleDrag(e, map)}
             zoom={[10]}
             style="mapbox://styles/mapbox/streets-v9"
             center={center}

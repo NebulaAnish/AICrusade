@@ -20,8 +20,13 @@ export default function Home() {
         setName(name);
     };
 
+    const handleDrag = (map: any, e: any) => {
+        // console.log(e.target.transform._center)
+        const { lng, lat } = e.target.transform._center;
+        setCenter([lng, lat]);
+    };
+
     useEffect(() => {
-        // fetchAllData();
         fetchNearData(center[1], center[0]);
     }, [center]);
     if (error) {
@@ -34,7 +39,9 @@ export default function Home() {
             {isLoading || data === undefined ? (
                 <Skeleton className="w-[88vw] h-[70vh]" />
             ) : (
-                <MapWithNoSSR center={center} transformers={data} containerStyle={{ height: '70vh', width: '88vw' }} />
+                <MapWithNoSSR 
+                handleDrag={(map, e) => handleDrag(map, e)}
+                 center={center} transformers={data} containerStyle={{ height: '70vh', width: '88vw' }} />
             )}
         </div>
     );
