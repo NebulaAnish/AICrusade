@@ -82,7 +82,7 @@ const TransformerForm = () => {
             return;
         }
         const location = await getPlaceName(formData.latitude, formData.longitude);
-        setFormData(location);
+        setFormData({ ...formData, location });
 
         axios
             .post('transformers/', {
@@ -127,10 +127,6 @@ const TransformerForm = () => {
         const python_date = isoString.substring(0, 10);
         return python_date;
     };
-
-    useEffect(() => {
-        console.log(formData);
-    }, [formData]);
 
     return (
         <ResponsiveContainer width="100%" height="100%">
