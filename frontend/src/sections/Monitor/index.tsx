@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import SearchBar from '@/components/searchbar';
 import dynamic from 'next/dynamic';
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster, toast } from 'react-hot-toast';
 import { Transformer } from '../../../types/types';
 import useFetchData from '@/hooks/useFetchData';
 import { Skeleton } from '@/components/ui/skeleton';
+import { faultyTransformer, normalTransformer } from '../../../db/images';
 // import transformers from '../../../db/transformers';
 
 export default function Home() {
@@ -39,10 +40,23 @@ export default function Home() {
             {isLoading || data === undefined ? (
                 <Skeleton className="w-[88vw] h-[70vh]" />
             ) : (
-                <MapWithNoSSR 
-                handleDrag={(map, e) => handleDrag(map, e)}
-                 center={center} transformers={data} containerStyle={{ height: '70vh', width: '88vw' }} />
+                <MapWithNoSSR
+                    handleDrag={(map, e) => handleDrag(map, e)}
+                    center={center}
+                    transformers={data}
+                    containerStyle={{ height: '70vh', width: '88vw' }}
+                />
             )}
+            <div className="mt-2 shadow-md rounded-md p-3 flex flex-col font-md">
+                <div className="flex flex-row gap-2">
+                    <span>Normal Transformer:</span>{' '}
+                    <img src={normalTransformer} className="w-[20px]" alt="Normal transformer" />{' '}
+                </div>
+                <div className="mt-2 flex flex-row gap-2">
+                    <span>Faulty Transformer: </span>{' '}
+                    <img className="w-[20px]" src={faultyTransformer} alt=" Faulty transformer" />{' '}
+                </div>
+            </div>
         </div>
     );
 }
