@@ -45,6 +45,7 @@ class TransformerListView(generics.ListCreateAPIView):
             max_latitude = latitude + latitude_difference
             min_longitude = longitude - longitude_difference
             max_longitude = longitude + longitude_difference
+            #random
 
             # Query Transformer instances within the specified range
             queryset = Transformer.objects.filter(
