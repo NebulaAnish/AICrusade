@@ -14,7 +14,6 @@ const fields = [
     { title: 'Transformer Type', name: 'type', type: 'text' },
     { title: 'Transformer Model', name: 'model', type: 'text' },
 ];
-const fieldNames = ['createdAt', 'type', 'model'];
 
 type FormData = {
     location: string;
@@ -114,10 +113,10 @@ const TransformerForm = () => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
 
-        setFormData((prevFormData) => ({
-            ...prevFormData,
+        setFormData({
+            ...formData,
             [name]: value,
-        }));
+        });
     };
 
     const getPythonDate = (date: Date): string => {
