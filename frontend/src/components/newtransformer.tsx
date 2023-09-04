@@ -10,9 +10,9 @@ import axios, { AxiosResponse } from 'axios';
 import useAxios from '@/hooks/useAxios';
 
 const fields = [
-    { title: 'Installation date', type: 'date' },
-    { title: 'Transformer Type', type: 'text' },
-    { title: 'Transformer Model', type: 'text' },
+    { title: 'Installation date', name: 'createdAt', type: 'date' },
+    { title: 'Transformer Type', name: 'type', type: 'text' },
+    { title: 'Transformer Model', name: 'model', type: 'text' },
 ];
 const fieldNames = ['createdAt', 'type', 'model'];
 
@@ -83,21 +83,32 @@ const TransformerForm = () => {
         const location = await getPlaceName(formData.latitude, formData.longitude);
         setFormData(location);
 
-        try {
-        } catch (err) {}
+        axios
+            .post('transformers/', {
+                installed_at: getPythonDate(new Date(formData.createdAt)),
+                manufacture_type: formData.type,
+                transformer_type: formData.model,
+                latitude: formData.latitude.toFixed(3),
+                longitude: formData.longitude.toFixed(3),
+                location,
+            })
+            .then((res) => {
+                console.log(res.data);
+                toast.success('Transformer added successfully');
+            });
     };
 
     const handleCenterChange = (center: [number, number], name: string) => {
         const centerRev: [number, number] = center.reverse() as [number, number];
         const locationName = name;
-        console.log(centerRev);
         setCenter(centerRev);
-        setFormData((prevFormData) => ({
-            ...prevFormData,
+        setFormData({
+            ...formData,
             location: locationName,
+
             // latitude: centerRev[0],
             // longitude: centerRev[1],
-        }));
+        });
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -137,7 +148,7 @@ const TransformerForm = () => {
                         {fields.map((field, index) => (
                             <div className="px-3 py-2 mt-1 w-[32rem]" key={field.title}>
                                 <Input
-                                    name={fieldNames[index]}
+                                    name={field.name}
                                     placeholder={field.title}
                                     onChange={handleChange}
                                     type={field.type}

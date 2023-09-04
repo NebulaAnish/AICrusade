@@ -19,7 +19,7 @@ class TransformerRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView
     serializer_class = TransformerSerializer
 
 
-class TransformerListView(generics.ListAPIView):
+class TransformerListView(generics.ListCreateAPIView):
     serializer_class = TransformerSerializer
     def perform_create(self, serializer):
         instance = serializer.save()
