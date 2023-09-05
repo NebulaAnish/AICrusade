@@ -24,7 +24,7 @@ export default function Home() {
 
     useEffect(() => {
         fetchNearData(center[1], center[0]);
-    }, [center, fetchNearData]);
+    }, [center]);
     if (error) {
         toast.error(error);
     }
