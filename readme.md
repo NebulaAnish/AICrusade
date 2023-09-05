@@ -15,3 +15,8 @@ In the frontend, we have used NextJS & React for state management and routing, S
 4. Open [http://localhost:3000](http://localhost:3000/) with your browser to see the result.
 
 ## Backend Setup
+
+
+## Demonstration
+![chrome_lx7NEnoAKE](https://github.com/NebulaAnish/Grid-Guardian/assets/84511488/c2713a49-bacd-4a53-8d5d-ed1a5ccf9814)
+![chrome_Oz8530Lunr](https://github.com/NebulaAnish/Grid-Guardian/assets/84511488/b72992b4-c8fc-467b-a925-315f76e97796)
