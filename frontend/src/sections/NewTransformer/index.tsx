@@ -1,4 +1,4 @@
-import TransformerForm from '@/components/newtransformer';
+import TransformerForm from '@/components/transformerForm';
 
 export default function NewTransformer() {
     return (

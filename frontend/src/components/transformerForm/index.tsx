@@ -1,12 +1,11 @@
 'use client';
-import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
+import { useState, FormEvent, ChangeEvent } from 'react';
+import { Input } from '../ui/Input';
+import { Button } from '../ui/Button';
 import { ResponsiveContainer } from 'recharts';
-import MapComponent from './map';
+import MapComponent from '../map';
 import { Toaster, toast } from 'react-hot-toast';
-import SearchBar from './searchbar';
-import axios, { AxiosResponse } from 'axios';
+import SearchBar from '../searchBar';
 import useAxios from '@/hooks/useAxios';
 
 const fields = [
@@ -45,12 +44,12 @@ const TransformerForm = () => {
             );
             const data = await res.json();
             return data.features[0].place_name;
-        } catch (err) {}
+        } catch (err) {
+            toast.error(`${err}`)
+        }
     };
 
     const handleClick = (map: any, e: any) => {
-        // const center = e.transform._center;
-        console.log(e);
         const { lng, lat } = e.lngLat;
         setCenter([lng, lat]);
         getPlaceName(lat, lng).then((location) => {
@@ -62,8 +61,8 @@ const TransformerForm = () => {
             }));
         });
         setMapSelected(true);
-        // console.log(longitude, latitude);
     };
+
     const axios = useAxios();
 
     const handleSubmit = async (event: FormEvent) => {
@@ -106,15 +105,11 @@ const TransformerForm = () => {
         setFormData({
             ...formData,
             location: locationName,
-
-            // latitude: centerRev[0],
-            // longitude: centerRev[1],
         });
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-
         setFormData({
             ...formData,
             [name]: value,

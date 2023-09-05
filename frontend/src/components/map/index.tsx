@@ -1,9 +1,9 @@
+"use client"
 import ReactMapboxGl, { Marker, ZoomControl } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Coordinates, Transformer } from '../../types/types';
-
-import TransformerMarker from './ui/TransformerMarker';
-import { normalTransformer } from '../../db/images';
+import { Coordinates, Transformer } from '../../../types/types';
+import TransformerMarker from '../ui/TransformerMarker';
+import { normalTransformer } from '../../../db/images';
 import { useState } from 'react';
 
 const Map = ReactMapboxGl({
@@ -66,13 +66,3 @@ const MapComponent = ({
 
 export default MapComponent;
 
-// import { Popup } from "react-mapbox-gl";
-
-// <Popup
-//   coordinates={[-0.13235092163085938,51.518250335096376]}
-// onClick: ()=>{}
-//   offset={{
-//     'bottom-left': [12, -38],  'bottom': [0, -38], 'bottom-right': [-12, -38]
-//   }}>
-//   <h1>Popup</h1>
-// </Popup>

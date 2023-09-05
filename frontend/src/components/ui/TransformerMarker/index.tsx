@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Transformer } from '../../../types/types';
-import { faultyTransformer, normalTransformer } from '../../../db/images';
+import { Transformer } from '../../../../types/types';
+import { faultyTransformer, normalTransformer } from '../../../../db/images';
 import { Marker } from 'react-mapbox-gl';
-import Modal from './Modal';
+import Modal from '../Modal';
 
 function TransformerMarker({
     transformer: { latitude, longitude, fault, location, installed_at, transformer_type, manufacture_type },

@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
-import { Coordinates } from '../../types/types';
-import { Input } from './ui/input';
+import { Coordinates } from '../../../types/types';
+import { Input } from '../ui/Input';
 
 export interface SearchBarProps {
     onLocationSelect: (location: Coordinates, name: string) => void;
